@@ -68,9 +68,9 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_5F7EAE289FD348C9BA3BB020AD5C1409 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_E528831CDC8C412CA4896C99CF56DD39 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_DCA3755F3BD64BB2803F6F85A1C0397F }}
+          client-id: ${{ secrets.__clientidsecretname__ }}
+          tenant-id: ${{ secrets.__tenantidsecretname__ }}
+          subscription-id: ${{ secrets.__subscriptionidsecretname__ }}
 
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v3
@@ -78,4 +78,3 @@ jobs:
         with:
           app-name: 'asp-contosochat'
           slot-name: 'Production'
-          

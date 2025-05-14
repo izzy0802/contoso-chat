@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+from flask import send_from_directory
 import os
 import requests
 
@@ -29,3 +30,11 @@ def chat():
     )
 
     return jsonify(response.json())
+
+@app.route("/")
+def index():
+    return send_from_directory("../frontend", "index.html")
+
+@app.route("/script.js")
+def serve_js():
+    return send_from_directory("../frontend", "script.js")

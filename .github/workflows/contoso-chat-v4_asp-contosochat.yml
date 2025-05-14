@@ -30,7 +30,10 @@ jobs:
           source venv/bin/activate
       
       - name: Install dependencies
-        run: pip install -r app/backend/requirements.txt
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libdbus-1-dev libglib2.0-dev
+          pip install -r app/backend/requirements.txt
         
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
 

@@ -30,23 +30,20 @@ jobs:
           source venv/bin/activate
       
       - name: Install dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y libdbus-1-dev libglib2.0-dev
-          pip install -r app/backend/requirements.txt
+        run: pip install -r requirements.txt
         
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
 
       - name: Zip artifact for deployment
-        run: |
-          cd app/backend
-          zip -r ../../release.zip . -x "venv/*"
+        run: zip release.zip ./* -r
+
       - name: Upload artifact for deployment jobs
         uses: actions/upload-artifact@v4
         with:
           name: python-app
           path: |
             release.zip
+            !venv/
 
   deploy:
     runs-on: ubuntu-latest
@@ -71,9 +68,9 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_4D12A785C60A40AD9C05A11E923780A7 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_ECF5F5311B4041ACB08131D005DBB7BB }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_8B9F53EA832649168BA364A708A9CB67 }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_5A5B0950BE3845238BBFFDBE662B4839 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_777F38EB33F24070B98A38E5079AB262 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_94C3950170484B0C9F977F2C6F840608 }}
 
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v3

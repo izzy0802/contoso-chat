@@ -1,5 +1,4 @@
-from flask import Flask, request, jsonify
-from flask import send_from_directory
+from flask import Flask, request, jsonify, send_from_directory
 import os
 import requests
 
@@ -31,10 +30,19 @@ def chat():
 
     return jsonify(response.json())
 
+# Serve index.html
 @app.route("/")
 def index():
-    return send_from_directory("../frontend", "index.html")
+    frontend_dir = os.path.join(os.path.dirname(__file__), "../frontend")
+    return send_from_directory(frontend_dir, "index.html")
 
+# Serve script.js
 @app.route("/script.js")
 def serve_js():
-    return send_from_directory("../frontend", "script.js")
+    frontend_dir = os.path.join(os.path.dirname(__file__), "../frontend")
+    return send_from_directory(frontend_dir, "script.js")
+
+# Run the app
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 8000))
+    app.run(host="0.0.0.0", port=port)

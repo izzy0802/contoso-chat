@@ -30,17 +30,15 @@ def chat():
 
     return jsonify(response.json())
 
-# Serve index.html
+app = Flask(__name__, static_folder="static")
+
 @app.route("/")
 def index():
-    frontend_dir = os.path.join(os.path.dirname(__file__), "../frontend")
-    return send_from_directory(frontend_dir, "index.html")
+    return send_from_directory(app.static_folder, "index.html")
 
-# Serve script.js
 @app.route("/script.js")
 def serve_js():
-    frontend_dir = os.path.join(os.path.dirname(__file__), "../frontend")
-    return send_from_directory(frontend_dir, "script.js")
+    return send_from_directory(app.static_folder, "script.js")
 
 # Run the app
 if __name__ == "__main__":
